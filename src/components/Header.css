@@ -1,0 +1,44 @@
+.cabecalho{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background-color: #003366;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    position: relative;
+    top: 0;
+    box-sizing: border-box;
+}
+
+.logo{
+    width: 50px;
+}
+
+#page-title {
+    margin: 0;
+    font-size: 30px;
+}
+
+h1{
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link{
+    color: #ffa500;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link:hover{
+    text-decoration: underline;
+}
