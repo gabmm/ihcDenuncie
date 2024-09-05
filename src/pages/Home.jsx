@@ -1,11 +1,12 @@
+import React from 'react';
 import './Home.css'
 
 function Home() {
 
     return (
     <>
-        <div className='App'>
-            <div className="content">
+        <div className='home-container'>
+            <div className="home-content">
                 
             </div>
         </div>
