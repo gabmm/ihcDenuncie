@@ -11,7 +11,11 @@ const Header = () => {
                         alt="logo do escudo"
                         className="logo"
                     />
-                <h1 id="page-title">Sistema de Denúncia de Vulnerabilidade Social</h1>
+                <div className='text-container'>
+                    <h1 id="page-title">Sistema de Denúncia de Vulnerabilidade Social</h1>
+                    <p>Faça sua parte, Denuncie casos de Vulnerabilidade social de menores de forma segura. </p>
+                </div>
+                
                 <nav>
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/report" className="nav-link">Denunciar</Link>
