@@ -10,11 +10,3 @@ Currently, two official plugins are available:
 ## Como rodar o projeto em modo dev?
 
 npm run dev
-
-## Como buildar o projeto para prod?
-
-npm run build
-
-## Como fazer deploy do projeto?
-
-npx vercel ./dist --prod
