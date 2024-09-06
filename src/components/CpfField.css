@@ -1,0 +1,15 @@
+.valid-cpf {
+    color: green;
+    font-weight: bold;
+}
+
+.invalid-cpf {
+    color: red;
+    font-weight: bold;
+    margin: 0 auto;
+    display: block;
+    padding: 2px;
+    width: 10%;
+    border: 1px solid #ff0000;
+    background-color: #ffdddd; /* Light pink */
+}
