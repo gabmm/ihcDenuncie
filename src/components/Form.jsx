@@ -5,13 +5,33 @@ const Form = () => {
     const [passos, setPassos] = useState(1); // inicializa com 1, passos é atua como contador
     const totalPassos = 3; // depende da quantidade de pergunta que teremos
 
+    const [localOcorrencia, setLocalOcorrencia] = useState('');
+    const [localValido, setLocalValido] = useState(true);
+
+    const manipularMudancaLocal = (event) => {
+        setLocalOcorrencia(event.target.value);
+        if (event.target.value.trim() !== '') {
+            setLocalValido(true);
+        }
+    };
+
     const proximo = () => { // esta relacionado ao botão próximo, incrementa o passo em + 1 ao ser clicado
-        if(passos < totalPassos) setPassos(passos + 1);
+        if (passos === 1 && localOcorrencia.trim() === '') {
+            setLocalValido(false);
+            return;
+        }
+        setPassos(passos + 1);
     };
 
     const anterior = () => { // esta relacionado ao botão anterior, decrementa o passo em - 1 ao ser clicado
         if(passos > 1) setPassos(passos - 1);
     };
+
+    const enviarFormulario = () => {
+        console.log("Formulário Enviado.");
+    };
+
+    
 
     const barraDeProgresso = (passos / totalPassos) * 100; // calcula a porcentagem da barra de progresso
 
@@ -27,19 +47,20 @@ const Form = () => {
                 </span>
             </div>
             <div className="form-content">
-                <form>
+                <form onSubmit={e => e.preventDefault()}>
                     {passos === 1 && (
                         <>
-                            <div className="form-group">
-                                <label htmlFor="localOcorrencia">Local da Ocorrência: </label>
-                                <input type="text" id="localOcorrencia" name="localOcorrencia"/>
+                            <div className={`form-group ${!localValido ? 'error' : ''}`}>
+                                <label htmlFor="localOcorrencia">Local da Ocorrência: <span className="required">*</span> </label>
+                                <input type="text" id="localOcorrencia" name="localOcorrencia" 
+                                value={localOcorrencia} onChange={manipularMudancaLocal} required />
+                                {!localValido && <p className="error-text">Este campo é obrigatório.</p>}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="descricaoOcorrencia"> Descrição da Ocorrência: </label>
                                 <textarea id="descricaoOcorrencia" name="descricaoOcorrencia"/>
                             </div>
                         </>
-                        
                     )}
 
                     {passos === 2 && (
@@ -83,7 +104,7 @@ const Form = () => {
                                 <input type="file" id="anexo" name="anexo"></input>
 
                             </div>
-                        
+
                         </>
                     )
 
@@ -97,13 +118,21 @@ const Form = () => {
                         >
                             Anterior
                         </button>
-                        <button
-                            type="button"
-                            onClick={proximo}
-                            disabled={passos === totalPassos}
-                        >
-                            Próximo
-                        </button>
+                       {passos < totalPassos ? (
+                            <button
+                                type="button"
+                                onClick={proximo}
+                            >
+                                Próximo
+                            </button>
+                        ) : (
+                            <button
+                                type="submit"
+                                onClick={enviarFormulario}
+                            >
+                                Enviar
+                            </button> 
+                        )}
                     </div>
                 </form>
             </div>
