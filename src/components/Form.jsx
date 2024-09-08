@@ -3,7 +3,7 @@ import './Form.css';
 
 const Form = () => {
     const [passos, setPassos] = useState(1); // inicializa com 1, passos é atua como contador
-    const totalPassos = 2; // depende da quantidade de pergunta que teremos
+    const totalPassos = 3; // depende da quantidade de pergunta que teremos
 
     const proximo = () => { // esta relacionado ao botão próximo, incrementa o passo em + 1 ao ser clicado
         if(passos < totalPassos) setPassos(passos + 1);
@@ -66,6 +66,29 @@ const Form = () => {
                         </>
                     )}
                     
+                    {passos === 3 && (
+                        <>
+                            <div className="form-group">
+                                <label htmlFor="nome">Seu nome (Opcional): </label>
+                                <input type="text" id="nome" name="nome"></input>
+
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="contato">Seu contato (Opcional): </label>
+                                <input type="tel" id="contato" name="contato"></input>
+
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="anexo">Anexos ( fotos, vídeos): </label>
+                                <input type="file" id="anexo" name="anexo"></input>
+
+                            </div>
+                        
+                        </>
+                    )
+
+                    }
+
                     <div className="button-group">
                         <button 
                             type="button"
