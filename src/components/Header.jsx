@@ -12,8 +12,8 @@ const Header = () => {
                         className="logo"
                     />
                 <div className='text-container'>
-                    <h1 id="page-title">Denúncia de Vulnerabilidade Social</h1>
-                    <p>Faça sua parte, Denuncie casos de Vulnerabilidade social de menores de forma segura. </p>
+                    <h1 id="page-title">Proteja o futuro, denuncie o presente</h1>
+                    <p>Faça sua parte, denuncie casos de Vulnerabilidade social de menores de forma rápida e segura. </p>
                 </div>
                 
                 <nav>
