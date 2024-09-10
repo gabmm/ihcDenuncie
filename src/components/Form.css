@@ -37,11 +37,17 @@
 
 .form-content{
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     background-color: #ffff;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .form-content label {
@@ -67,6 +73,7 @@
 
 .form-group {
     margin-bottom: 1rem;
+    flex-grow: 1;
 }
 
 .button-group {
@@ -97,4 +104,13 @@
 
 .required {
     color: red;
+}
+.error input {
+    border-color: red;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 5px;
 }
