@@ -4,7 +4,7 @@ import './Form.css';
 
 const Form = () => {
     const [passos, setPassos] = useState(1);
-    const totalPassos = 3;
+    const totalPassos = 4;
 
     const [localOcorrencia, setLocalOcorrencia] = useState('');
     const [numero, setNumero] = useState('');
@@ -13,6 +13,8 @@ const Form = () => {
     const [estado, setEstado] = useState('');
     const [cep, setCep] = useState('');
     const [complemento, setComplemento] = useState('');
+    const [tipoVul, setTipoVul] = useState('');
+    const [texto, setTexto] = useState('');
 
     const [vitimas, setVitimas] = useState([{}])
 
@@ -22,6 +24,7 @@ const Form = () => {
     const [cidadeValido, setCidadeValido] = useState(true);
     const [estadoValido, setEstadoValido] = useState(true);
     const [cepValido, setCepValido] = useState(true);
+    const [tipoVulValido, setTipoVulValido] = useState(true);
 
     const adicionarVitima = () => {
         setVitimas([...vitimas, {}]);
@@ -57,7 +60,7 @@ const Form = () => {
             setBairroValido(true);
         }
     };
-
+    
     const manipularMudancaCidade = (event) => {
         setCidade(event.target.value);
         if (event.target.value.trim() !== '') {
@@ -72,8 +75,14 @@ const Form = () => {
         }
     };
 
+    const manipularMudancaTipo = (event) => {
+        setTipoVul(event.target.value);
+        if(event.target.value.trim() !== ''){
+            setTipoVulValido(true);
+        }
+    };
+
     const proximo = () => {
-        // Validação dos campos obrigatórios no primeiro passo
         if (passos === 1) {
             let isValid = true;
             if (localOcorrencia.trim() === '') {
@@ -100,8 +109,18 @@ const Form = () => {
                 setCepValido(false);
                 isValid = false;
             }
+            
+        }
+        if(passos === 2){
 
-            if (!isValid) return; // Impede de avançar se algum campo estiver inválido
+        }
+        if(passos === 3){
+            let isValid = true;
+            if(tipoVul.trim() === ''){
+                setTipoVulValido(false);
+                isValid = false;
+            }
+            if (!isValid) return; 
         }
         setPassos(passos + 1);
     };
@@ -111,6 +130,11 @@ const Form = () => {
     };
 
     const enviarFormulario = () => {
+        if(passos === totalPassos ){
+            let isValid = true;
+
+            if(!isValid) return;
+        }
         console.log("Formulário Enviado.");
     };
 
@@ -218,13 +242,19 @@ const Form = () => {
 
                     {passos === 3 && (
                         <>
-                            <div className="form-group">
-                                <label htmlFor="nome">Seu nome (Opcional): </label>
-                                <input type="text" id="nome" name="nome"></input>
+                            <div className={`form-group ${!tipoVulValido ? 'error' : ''}`}>
+                                <label htmlFor="tipoVul">Tipo de vulnerabilidade <span className="required">*</span> </label>
+                                <input type="text" id="tipoVul" name="tipoVul" value={tipoVul} onChange={manipularMudancaTipo} required />
+                                {!tipoVulValido && <p className="error-text">Este campo é obrigatório.</p>}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="contato">Seu contato (Opcional): </label>
-                                <input type="tel" id="contato" name="contato"></input>
+                                <label htmlFor="descricao">Descrição da ocorrência </label>
+                                <textarea
+                                    id="descricao"
+                                    name="descricao"
+                                    value={texto}
+                                    onChange={(e) => setTexto(e.target.value)}
+                                />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="anexo">Anexos ( fotos, vídeos): </label>
@@ -238,23 +268,27 @@ const Form = () => {
                                 >
                                     Anterior
                                 </button>
-                                {passos < totalPassos ? (
-                                    <button
-                                        type="button"
-                                        onClick={proximo}
-                                    >
-                                        Próximo
-                                    </button>
-                                ) : (
-                                    <button
-                                        type="submit"
-                                        onClick={enviarFormulario}
-                                    >
-                                        Enviar
-                                    </button>
-                                )}
+                                <button type="button" onClick={proximo}>
+                                    Próximo
+                                </button>
                             </div>
                         </>
+                       
+                    )}
+                     {passos === 4 && (
+                        <>
+                        <div className="button-group">
+                        <button type="button" onClick={anterior} disabled={passos === 1}>
+                                Anterior
+                            </button>
+                        
+                            <button type="submit" onClick={enviarFormulario}>
+                                Enviar
+                            </button>
+                        </div>
+                           
+                        </>
+                            
                     )}
 
 
@@ -265,3 +299,15 @@ const Form = () => {
 };
 
 export default Form;
+
+
+// {passos < totalPassos ? (
+//     <button
+//     type="button"
+//     onClick={proximo}
+// >
+//     Próximo
+// </button>
+// ) : (
+
+// )}
