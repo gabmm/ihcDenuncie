@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import VitimaForm from "./VitimaForm";
 import './Form.css';
 
 const Form = () => {
@@ -13,6 +14,8 @@ const Form = () => {
     const [cep, setCep] = useState('');
     const [complemento, setComplemento] = useState('');
 
+    const [vitimas, setVitimas] = useState([{}])
+
     const [localValido, setLocalValido] = useState(true);
     const [numeroValido, setNumeroValido] = useState(true);
     const [bairroValido, setBairroValido] = useState(true);
@@ -20,7 +23,15 @@ const Form = () => {
     const [estadoValido, setEstadoValido] = useState(true);
     const [cepValido, setCepValido] = useState(true);
 
-    // Manipuladores de mudança com validação para números
+    const adicionarVitima = () => {
+        setVitimas([...vitimas, {}]);
+    };
+
+    const removerVitima = (index) => {
+        const novasVitimas = vitimas.filter((_, i) => i !== index);
+        setVitimas(novasVitimas);
+    }
+
     const manipularMudancaLocal = (event) => {
         setLocalOcorrencia(event.target.value);
         if (event.target.value.trim() !== '') {
@@ -92,8 +103,6 @@ const Form = () => {
 
             if (!isValid) return; // Impede de avançar se algum campo estiver inválido
         }
-
-        // Avança para o próximo passo
         setPassos(passos + 1);
     };
 
@@ -110,12 +119,12 @@ const Form = () => {
     return (
         <div className="form-container">
             <div className="progress-bar">
-                <div 
+                <div
                     className="progress-bar-fill"
-                    style={{width: `${barraDeProgresso}%`}}
+                    style={{ width: `${barraDeProgresso}%` }}
                 />
                 <span className="progress-bar-text">
-                Passo {passos} de {totalPassos}    
+                    Passo {passos} de {totalPassos}
                 </span>
             </div>
             <div className="form-content">
@@ -123,13 +132,13 @@ const Form = () => {
                     {passos === 1 && (
                         <>
                             <div className="row">
-                                <div className={`form-group ${!localValido ? 'error' : ''}`} style={{flex: 0.8}}>
+                                <div className={`form-group ${!localValido ? 'error' : ''}`} style={{ flex: 0.8 }}>
                                     <label htmlFor="rua">Rua: <span className="required">*</span></label>
-                                    <input type="text" id="rua" name="rua" 
+                                    <input type="text" id="rua" name="rua"
                                         value={localOcorrencia} onChange={manipularMudancaLocal} required />
                                     {!localValido && <p className="error-text">Este campo é obrigatório.</p>}
                                 </div>
-                                <div className={`form-group ${!numeroValido ? 'error' : ''}`} style={{flex: 0.1}}>
+                                <div className={`form-group ${!numeroValido ? 'error' : ''}`} style={{ flex: 0.1 }}>
                                     <label htmlFor="numero">Número: <span className="required">*</span></label>
                                     <input type="number" id="numero" name="numero" value={numero} onChange={manipularMudancaNumero} required />
                                     {!numeroValido && <p className="error-text">Este campo é obrigatório.</p>}
@@ -147,7 +156,7 @@ const Form = () => {
                                     <input type="text" id="cidade" name="cidade" value={cidade} onChange={manipularMudancaCidade} required />
                                     {!cidadeValido && <p className="error-text">Este campo é obrigatório.</p>}
                                 </div>
-                                <div className={`form-group ${!estadoValido ? 'error' : ''}`} style={{flex: 0.7}}>
+                                <div className={`form-group ${!estadoValido ? 'error' : ''}`} style={{ flex: 0.7 }}>
                                     <label htmlFor="estado">Estado: <span className="required">*</span></label>
                                     <input type="text" id="estado" name="estado" value={estado} onChange={manipularMudancaEstado} required />
                                     {!estadoValido && <p className="error-text">Este campo é obrigatório.</p>}
@@ -155,11 +164,11 @@ const Form = () => {
                             </div>
 
                             <div className="row">
-                                <div className="form-group" style={{flex: 0.7}}>
+                                <div className="form-group" style={{ flex: 0.7 }}>
                                     <label htmlFor="complemento">Complemento:</label>
                                     <input type="text" id="complemento" name="complemento" value={complemento} onChange={e => setComplemento(e.target.value)} />
                                 </div>
-                                <div className={`form-group ${!cepValido ? 'error' : ''}`} style={{flex: 0.3}}>
+                                <div className={`form-group ${!cepValido ? 'error' : ''}`} style={{ flex: 0.3 }}>
                                     <label htmlFor="cep">CEP: <span className="required">*</span></label>
                                     <input type="number" id="cep" name="cep" value={cep} onChange={manipularMudancaCep} required />
                                     {!cepValido && <p className="error-text">Este campo é obrigatório.</p>}
@@ -167,66 +176,43 @@ const Form = () => {
                             </div>
 
                             <div className="button-group">
-                            <button 
-                            type="button"
-                            onClick={anterior}
-                            disabled={passos === 1}
-                        >
-                            Anterior
-                        </button>
+                                <button
+                                    type="button"
+                                    onClick={anterior}
+                                    disabled={passos === 1}
+                                >
+                                    Anterior
+                                </button>
                                 <button type="button" onClick={proximo}>
                                     Próximo
                                 </button>
-                            
+
                             </div>
                         </>
                     )}
 
                     {passos === 2 && (
                         <>
-                            <div className="form-group">
-                                <label htmlFor="idadeVitima">Idade da Vítima: </label>
-                                <input type="number" id="idadeVitima" name="idadeVitima" min="0"/>
+                           <div className="vitima-section">
+                                <div className="vitima-container">
+                                    {vitimas.map((_, index) => (
+                                        <VitimaForm
+                                            key={index}
+                                            index={index}
+                                            handleRemove={removerVitima}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="add-button-container">
+                                    <button type="button" className="add-button" onClick={adicionarVitima}>+</button>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="generoVitima"> Gênero da Vítima: </label>
-                                <select id="generoVitima" name="generoVitima" >
-                                    <option value= "Masculino">Masculino</option>
-                                    <option value="Feminino">Feminino</option>
-                                    <option value="NaoBinario">Não binário</option>
-                                    <option value="generoFluido">Genêro fluído</option>
-                                    <option value="agenero">Agênero</option>
-                                    <option value="bigenero">Bigênero</option>
-                                    <option value="generoNeutro">Gênero neutro</option>
-                                    <option value="demiGenero">Demigênero</option>
-                                    <option value="generoQueer">Gênero queer</option>
-                                    <option value="pangenero">Pangênero</option>
-                                </select>
-                            </div>
+
                             <div className="button-group">
-                        <button 
-                            type="button"
-                            onClick={anterior}
-                            disabled={passos === 1}
-                        >
-                            Anterior
-                        </button>
-                        {passos < totalPassos ? (
-                            <button
-                                type="button"
-                                onClick={proximo}
-                            >
-                                Próximo
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                onClick={enviarFormulario}
-                            >
-                                Enviar
-                            </button>
-                        )}
-                        </div>
+                                <button type="button" onClick={anterior}>Anterior</button>
+                                <button type="button" onClick={proximo}>Próximo</button>
+                            </div>
+
                         </>
                     )}
 
@@ -245,33 +231,33 @@ const Form = () => {
                                 <input type="file" id="anexo" name="anexo"></input>
                             </div>
                             <div className="button-group">
-                        <button 
-                            type="button"
-                            onClick={anterior}
-                            disabled={passos === 1}
-                        >
-                            Anterior
-                        </button>
-                        {passos < totalPassos ? (
-                            <button
-                                type="button"
-                                onClick={proximo}
-                            >
-                                Próximo
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                onClick={enviarFormulario}
-                            >
-                                Enviar
-                            </button>
-                        )}
-                    </div>
+                                <button
+                                    type="button"
+                                    onClick={anterior}
+                                    disabled={passos === 1}
+                                >
+                                    Anterior
+                                </button>
+                                {passos < totalPassos ? (
+                                    <button
+                                        type="button"
+                                        onClick={proximo}
+                                    >
+                                        Próximo
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        onClick={enviarFormulario}
+                                    >
+                                        Enviar
+                                    </button>
+                                )}
+                            </div>
                         </>
                     )}
 
-                    
+
                 </form>
             </div>
         </div>
