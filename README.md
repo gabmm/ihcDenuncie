@@ -10,3 +10,7 @@ Currently, two official plugins are available:
 ## Como rodar o projeto em modo dev?
 
 npm run dev
+
+## Documentação MUI
+
+Clique <a href="https://mui.com/material-ui/getting-started/">aqui</a> e vá em "Components"
