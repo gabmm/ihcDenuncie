@@ -142,3 +142,12 @@
     flex-direction: column;
     box-sizing: border-box;
 }
+
+#tipoVul {
+    width: 50%;
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

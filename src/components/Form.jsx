@@ -5,6 +5,8 @@ import './Form.css';
 const Form = () => {
     const [passos, setPassos] = useState(1);
     const totalPassos = 4;
+    const opcoes = ['Violência Física', 'Abandono', 'Abuso Sexual', 'Trabalho Infantil'];
+
 
     const [localOcorrencia, setLocalOcorrencia] = useState('');
     const [numero, setNumero] = useState('');
@@ -15,8 +17,8 @@ const Form = () => {
     const [complemento, setComplemento] = useState('');
     const [tipoVul, setTipoVul] = useState('');
     const [texto, setTexto] = useState('');
-
     const [vitimas, setVitimas] = useState([{}])
+    
 
     const [localValido, setLocalValido] = useState(true);
     const [numeroValido, setNumeroValido] = useState(true);
@@ -25,7 +27,7 @@ const Form = () => {
     const [estadoValido, setEstadoValido] = useState(true);
     const [cepValido, setCepValido] = useState(true);
     const [tipoVulValido, setTipoVulValido] = useState(true);
-
+    
     const adicionarVitima = () => {
         setVitimas([...vitimas, {}]);
     };
@@ -248,8 +250,14 @@ const Form = () => {
                         <>
                             <div className={`form-group ${!tipoVulValido ? 'error' : ''}`}>
                                 <label htmlFor="tipoVul">Tipo de vulnerabilidade <span className="required">*</span> </label>
-                                <input type="text" id="tipoVul" name="tipoVul" value={tipoVul} onChange={manipularMudancaTipo} required />
+                                <select id="tipoVul" value={tipoVul} onChange={manipularMudancaTipo} required>
+                                    <option value=""></option>
+                                   {opcoes.map((opcao, index) => (
+                                        <option key={index} value={opcao}>{opcao}</option>
+                                    ))}
+                                </select>
                                 {!tipoVulValido && <p className="error-text">Este campo é obrigatório.</p>}
+                                
                             </div>
                             <div className="form-group">
                                 <label htmlFor="descricao">Descrição da ocorrência </label>
