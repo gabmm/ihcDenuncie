@@ -30,10 +30,9 @@
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espaço entre o checkbox e o label */
+  gap: 10px; 
 }
 
-/* Botão para adicionar vítima */
 .add-button {
   background-color: #009688;
   border: none;
@@ -44,8 +43,6 @@
   border-radius: 5px;
   margin-top: 20px;
 }
-
-/* Botão para remover vítima */
 .remove-button {
   background-color: #e57373;
   border: none;

@@ -142,7 +142,7 @@ const Form = () => {
         console.log("Formulário Enviado.");
     };
 
-    const barraDeProgresso = (passos / totalPassos) * 100; // Calcula a porcentagem da barra de progresso
+    const barraDeProgresso = (passos / totalPassos) * 100; 
 
     return (
         <div className="form-container">
