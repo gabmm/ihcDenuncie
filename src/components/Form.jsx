@@ -109,7 +109,9 @@ const Form = () => {
                 setCepValido(false);
                 isValid = false;
             }
-            
+            if (!isValid) {
+                return;
+            }
         }
         if(passos === 2){
 
@@ -151,7 +153,9 @@ const Form = () => {
                     Passo {passos} de {totalPassos}
                 </span>
             </div>
-            <div className="form-content">
+            <div className={passos === 1 ? "form-content form-content-step-1" 
+                            : passos === 3 ? "form-content form-content-step-3" 
+                            : "form-content"}>
                 <form onSubmit={e => e.preventDefault()}>
                     {passos === 1 && (
                         <>

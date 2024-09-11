@@ -51,13 +51,13 @@
 }
 
 .form-content label {
-    display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
 }
-.form-content input,
-.form-content select,
-.form-content textarea{
+
+.form-content-step-1 input,
+.form-content-step-1 select,
+.form-content-step-1 textarea {
     width: 100%;
     padding: 0.9rem;
     margin-bottom: 1rem;
@@ -65,7 +65,16 @@
     border-radius: 4px;
     box-sizing: border-box;
 }
-
+.form-content-step-3 input,
+.form-content-step-3 select,
+.form-content-step-3 textarea {
+    width: 100%;
+    padding: 0.9rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 .form-content textarea {
     height: 100px;
     resize: vertical;
@@ -113,4 +122,23 @@
     color: red;
     font-size: 0.85rem;
     margin-top: 5px;
+}
+
+/* Container das vítimas: Alinha as vítimas lado a lado */
+.vitima-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os formulários "quebrem" para a próxima linha, se necessário */
+    gap: 20px; /* Espaçamento entre os formulários de vítima */
+    justify-content: flex-start;
+}
+
+/* Cada formulário de vítima */
+.vitima-form {
+    background-color: #d9fdd3;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
