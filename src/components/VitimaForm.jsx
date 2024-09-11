@@ -8,10 +8,10 @@ const VitimaForm = ({ index, handleRemove }) => {
 
     return (
         <div className="vitima-form">
-            <h3>Vítima {index + 1}</h3>
+            <h3 style={{ fontSize: '40px' }}>Vítima {index + 1}</h3>
             
             <div className="form-group">
-                <label>Apelido:</label>
+                <label style={{ fontSize: '30px' }}>Apelido:</label>
                 <input 
                     type="text"
                     value={apelido}
@@ -20,36 +20,34 @@ const VitimaForm = ({ index, handleRemove }) => {
             </div>
 
             <div className="form-group">
-                <label>Idade:</label>
+                <label style={{ fontSize: '30px' }}>Idade:</label>
                 <div className="checkbox-group">
-                    <label>
-                        Bebê
+                    <label className="checkbox-label">
                         <input
                             type="checkbox"
                             value="Bebê"
                             checked={idade === 'Bebê'}
                             onChange={(e) => setIdade(e.target.value)}
                         />
+                        Bebê
                     </label>
-                    <label>
-                    Criança
+                    <label className="checkbox-label">
                         <input
                             type="checkbox"
                             value="Criança"
                             checked={idade === 'Criança'}
                             onChange={(e) => setIdade(e.target.value)}
                         />
-                        
+                        Criança
                     </label>
-                    <label>
-                    Adolescente
+                    <label className="checkbox-label">
                         <input
                             type="checkbox"
                             value="Adolescente"
                             checked={idade === 'Adolescente'}
                             onChange={(e) => setIdade(e.target.value)}
                         />
-                        
+                        Adolescente
                     </label>
                 </div>
             </div>
@@ -57,8 +55,7 @@ const VitimaForm = ({ index, handleRemove }) => {
             <div className="form-group">
                 <label>Gênero:</label>
                 <div className="radio-group">
-                    <label>
-                    Masculino
+                    <label className="radio-label">
                         <input
                             type="radio"
                             name={`genero-${index}`}
@@ -66,10 +63,9 @@ const VitimaForm = ({ index, handleRemove }) => {
                             checked={genero === 'Masculino'}
                             onChange={(e) => setGenero(e.target.value)}
                         />
-                        
+                        Masculino
                     </label>
-                    <label>
-                    Feminino
+                    <label className="radio-label">
                         <input
                             type="radio"
                             name={`genero-${index}`}
@@ -77,6 +73,7 @@ const VitimaForm = ({ index, handleRemove }) => {
                             checked={genero === 'Feminino'}
                             onChange={(e) => setGenero(e.target.value)}
                         />
+                        Feminino
                     </label>
                 </div>
             </div>
