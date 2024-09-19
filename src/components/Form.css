@@ -125,15 +125,13 @@
     margin-top: 5px;
 }
 
-/* Container das vítimas: Alinha as vítimas lado a lado */
 .vitima-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que os formulários "quebrem" para a próxima linha, se necessário */
-    gap: 20px; /* Espaçamento entre os formulários de vítima */
+    flex-wrap: wrap; 
+    gap: 20px;
     justify-content: flex-start;
 }
 
-/* Cada formulário de vítima */
 .vitima-form {
     background-color: #d9fdd3;
     padding: 20px;
