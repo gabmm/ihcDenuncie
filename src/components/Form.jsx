@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import VitimaForm from "./VitimaForm";
-import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel, Grid } from '@mui/material';
+import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel, Grid, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 const usarCamposFormulario = (estadoInicial) => {
     const [campos, setCampos] = useState(estadoInicial);
@@ -95,15 +95,6 @@ const Form = () => {
         if (passos > 1) setPassos(passos - 1);
     };
 
-    const enviarFormulario = () => {
-        if (verificarCamposObrigatorios()) {
-            console.log("Formulário Enviado.");
-        }
-        else {
-            alert('Por favor, preencha todos os campos obrigatórios.');
-        }
-    };
-
     const [number, setNumber] = useState('');
 
     const valida_numero = (event) => {
@@ -113,6 +104,22 @@ const Form = () => {
             setNumber(value);
         }
     };
+
+
+    const [aberto, setAberto] = useState(false);
+    const clickAberto = () => {
+        setAberto(true);
+    };
+
+    const fechar = () => {
+        setAberto(false);
+    };
+
+    const confirmar = () => {
+        setAberto(false);
+        alert("Formulário enviado.")
+    };
+
     return (
         <Box
             sx={{
@@ -255,15 +262,15 @@ const Form = () => {
                 {passos === 2 && (
                     <>
                         <Typography variant="h6" gutterBottom>Vítimas</Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems:'center'}}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center' }}>
                             <Grid container spacing={2}>
-                            {vitimas.map((vitima) => (
-                                <Grid item xs={12} sm={6} md={4} lg={6} key={vitima.id}>
-                                <VitimaForm vitima={vitima} removerVitima={() => removerVitima(vitima.id)} />
-                                </Grid>
-                            ))}
-                           </Grid>
-                            <Button variant="contained" size="medium" onClick={adicionarVitima } sx={{maxWidth: '200px',}}>Adicionar Vítima</Button>
+                                {vitimas.map((vitima) => (
+                                    <Grid item xs={12} sm={6} md={4} lg={6} key={vitima.id}>
+                                        <VitimaForm vitima={vitima} removerVitima={() => removerVitima(vitima.id)} />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <Button variant="contained" size="medium" onClick={adicionarVitima} sx={{ maxWidth: '200px', }}>Adicionar Vítima</Button>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
@@ -316,7 +323,29 @@ const Form = () => {
                         <Typography variant="h6" gutterBottom>Revisão</Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
-                            <Button variant="contained" onClick={enviarFormulario}>Enviar</Button>
+                            <Button variant="contained" onClick={clickAberto}>Enviar</Button>
+                            <Dialog
+                                open={aberto}
+                                onClose={fechar}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">{"Tem certeza que deseja enviar?"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        Esta ação enviará suas informações, você tem certeza que deseja continuar?
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={fechar} color="primary">
+                                        Cancelar
+                                    </Button>
+                                    <Button onClick={confirmar} color="primary" autoFocus>
+                                        Confirmar
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+
                         </Box>
                     </>
                 )}
