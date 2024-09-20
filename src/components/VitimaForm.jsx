@@ -5,8 +5,7 @@ import { Card, CardContent, Typography, TextField, Radio, RadioGroup, FormContro
 
 const VitimaForm = ({ vitima, removerVitima }) => {
     return (
-        <div className="vitima-form">
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, flexDirection: 'column'}}>
+           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, flexDirection: 'column'}}>
                 <Card sx={{ width: 275, backgroundColor: '#e3f2fd', boxShadow: 3 }}>
                     <CardContent>
                         <Typography variant="h6" component="div">
@@ -50,7 +49,6 @@ const VitimaForm = ({ vitima, removerVitima }) => {
                     </CardContent>
                 </Card>
             </Box>
-        </div>
     );
 };
 
