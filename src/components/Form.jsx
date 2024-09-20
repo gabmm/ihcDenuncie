@@ -23,7 +23,7 @@ const usarCamposFormulario = (estadoInicial) => {
         [campo]: true
       });
     };
-  
+
     const obterPropriedadesCampo = (campo) => ({
       value: campos[campo],
       onChange: manipularMudanca(campo),
@@ -32,7 +32,23 @@ const usarCamposFormulario = (estadoInicial) => {
       helperText: tocados[campo] && !campos[campo] ? "Campo obrigatório" : undefined
     });
   
-    return { obterPropriedadesCampo };
+    const verificarCamposObrigatorios = () => {
+        const camposObrigatorios = ['rua', 'numero','bairro' ,'cidade', 'estado', 'cep'];
+        let todosPreenchidos = true;
+    
+        for (let campo of camposObrigatorios) {
+          if (!campos[campo] || campos[campo].trim() === '') {
+            setTocados(prevTocados => ({
+              ...prevTocados,
+              [campo]: true
+            }));
+            todosPreenchidos = false;
+        }
+    }
+        return todosPreenchidos;
+      };
+
+    return { obterPropriedadesCampo, verificarCamposObrigatorios };
 };
 
 const Form = () => {
@@ -40,7 +56,7 @@ const Form = () => {
     const totalPassos = 4;
     const opcoes = ['Violência Física', 'Abandono', 'Abuso Sexual', 'Trabalho Infantil'];
 
-    const { obterPropriedadesCampo } = usarCamposFormulario({
+    const { obterPropriedadesCampo, verificarCamposObrigatorios } = usarCamposFormulario({
         rua: '',
         numero: '',
         bairro: '',
@@ -48,7 +64,6 @@ const Form = () => {
         estado: '',
         cep: '',
         complemento: '',
-        texto: ''
       });
 
     const [tipoVul, setTipoVul] = useState('');
@@ -56,7 +71,13 @@ const Form = () => {
     const [vitimas, setVitimas] = useState([{}]);
 
     const proximo = () => {
-        setPassos(passos + 1);
+        if(verificarCamposObrigatorios()){
+            setPassos(passos + 1);
+        }
+        else {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+        }
+        
     };
 
     const anterior = () => {
@@ -64,7 +85,12 @@ const Form = () => {
     };
 
     const enviarFormulario = () => {
-        console.log("Formulário Enviado.");
+        if(verificarCamposObrigatorios()){
+            console.log("Formulário Enviado.");
+        }
+        else{
+            alert('Por favor, preencha todos os campos obrigatórios.');
+        }
     };
   
     const [number, setNumber] = useState('');
@@ -166,7 +192,7 @@ const Form = () => {
                         <TextField
                             required
                             id="endereco-estado"
-                            label="estado"
+                            label="Estado"
                             variant="outlined"
                             sx={{
                                 marginBottom: "40px",
@@ -193,6 +219,7 @@ const Form = () => {
                                 marginBottom: "40px",
                                 marginRight: "10px",
                                 width: "23%"}}
+                            {...obterPropriedadesCampo('cep')}
                         />
                         </Box>
 
