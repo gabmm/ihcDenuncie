@@ -2,18 +2,55 @@ import React, { useState } from "react";
 import VitimaForm from "./VitimaForm";
 import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel } from '@mui/material';
 
+const usarCamposFormulario = (estadoInicial) => {
+    const [campos, setCampos] = useState(estadoInicial);
+    const [tocados, setTocados] = useState({});
+  
+    const manipularMudanca = (campo) => (evento) => {
+      setCampos({
+        ...campos,
+        [campo]: evento.target.value
+      });
+      setTocados({
+        ...tocados,
+        [campo]: true
+      });
+    };
+  
+    const manipularDesfoque = (campo) => () => {
+      setTocados({
+        ...tocados,
+        [campo]: true
+      });
+    };
+  
+    const obterPropriedadesCampo = (campo) => ({
+      value: campos[campo],
+      onChange: manipularMudanca(campo),
+      onBlur: manipularDesfoque(campo),
+      error: tocados[campo] && !campos[campo],
+      helperText: tocados[campo] && !campos[campo] ? "Campo obrigatório" : undefined
+    });
+  
+    return { obterPropriedadesCampo };
+};
+
 const Form = () => {
     const [passos, setPassos] = useState(1);
     const totalPassos = 4;
     const opcoes = ['Violência Física', 'Abandono', 'Abuso Sexual', 'Trabalho Infantil'];
 
-    const [localOcorrencia, setLocalOcorrencia] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [estado, setEstado] = useState('');
-    const [cep, setCep] = useState('');
-    const [complemento, setComplemento] = useState('');
+    const { obterPropriedadesCampo } = usarCamposFormulario({
+        rua: '',
+        numero: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+        cep: '',
+        complemento: '',
+        texto: ''
+      });
+
     const [tipoVul, setTipoVul] = useState('');
     const [texto, setTexto] = useState('');
     const [vitimas, setVitimas] = useState([{}]);
@@ -29,7 +66,16 @@ const Form = () => {
     const enviarFormulario = () => {
         console.log("Formulário Enviado.");
     };
+  
+    const [number, setNumber] = useState('');
 
+    const valida_numero = (event) => {
+        const value = event.target.value;
+        const re = /^[0-9\b]+$/; 
+        if (value === '' || re.test(value)) {
+        setNumber(value);
+        }
+    };
     return (
         <Box 
             sx={{ 
@@ -75,22 +121,27 @@ const Form = () => {
                                 marginRight: "10px",
                                 width: "70%"
                             }}
-                            helperText="A rua em que você mora"
-                            error={true}
+                           
                             fullWidth={true}
+                            {...obterPropriedadesCampo('rua')}
                             />
                              <TextField
+                                required={true}
                                 id="endereco-numero"
                                 label="Número"
+                                value={number}
                                 variant="outlined"
+                                onChange={valida_numero}
                                 sx={{
                                     marginBottom: "40px",
                                     marginRight: "10px",
                                     width: "24%"}}
+                                {...obterPropriedadesCampo('numero')}
                             />
                         </Box>
                         <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
                         <TextField
+                            required
                             id="endereco-bairro"
                             label="Bairro"
                             variant="outlined"
@@ -98,8 +149,10 @@ const Form = () => {
                                 marginBottom: "40px",
                                 marginRight: "10px",
                                 width: "30%"}}
+                            {...obterPropriedadesCampo('bairro')}
                             />
                         <TextField
+                            required
                             id="endereco-cidade"
                             label="Cidade"
                             variant="outlined"
@@ -107,9 +160,11 @@ const Form = () => {
                                 marginBottom: "40px",
                                 marginRight: "10px",
                                 width: "40%"}}
+                            {...obterPropriedadesCampo('cidade')}
                         />
 
                         <TextField
+                            required
                             id="endereco-estado"
                             label="estado"
                             variant="outlined"
@@ -117,11 +172,11 @@ const Form = () => {
                                 marginBottom: "40px",
                                 marginRight: "10px",
                                 width: "20%"}}
+                            {...obterPropriedadesCampo('estado')}
                         />
                         </Box>
                         <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
                         <TextField
-                            required={true}
                             id="endereco-complemento"
                             label="Complemento"
                             variant="outlined"
@@ -130,6 +185,7 @@ const Form = () => {
                             maxRows={6}
                         />
                         <TextField
+                            required
                             id="endereco-CEP"
                             label="CEP"
                             variant="outlined"
