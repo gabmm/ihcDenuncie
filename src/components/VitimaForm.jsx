@@ -1,84 +1,55 @@
 import React, { useState } from "react";
 import './VitimaForm.css';
+import { Card, CardContent, Typography, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box } from '@mui/material';
 
-const VitimaForm = ({ index, handleRemove }) => {
-    const [apelido, setApelido] = useState('');
-    const [idade, setIdade] = useState('');
-    const [genero, setGenero] = useState('');
 
+const VitimaForm = ({ vitima, removerVitima }) => {
     return (
         <div className="vitima-form">
-            <h3 style={{ fontSize: '40px' }}>Vítima {index + 1}</h3>
-            
-            <div className="form-group">
-                <label style={{ fontSize: '30px' }}>Apelido:</label>
-                <input 
-                    type="text"
-                    value={apelido}
-                    onChange={(e) => setApelido(e.target.value)}
-                />
-            </div>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, flexDirection: 'column'}}>
+                <Card sx={{ width: 275, backgroundColor: '#e3f2fd', boxShadow: 3 }}>
+                    <CardContent>
+                        <Typography variant="h6" component="div">
+                            Vítima {vitima.id + 1}
+                        </Typography>
 
-            <div className="form-group">
-                <label style={{ fontSize: '30px' }}>Idade:</label>
-                <div className="checkbox-group">
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            value="Bebê"
-                            checked={idade === 'Bebê'}
-                            onChange={(e) => setIdade(e.target.value)}
+                        <TextField
+                            label="Apelido"
+                            variant="outlined"
+                            fullWidth
+                            size="small"
+                            margin="dense"
                         />
-                        Bebê
-                    </label>
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            value="Criança"
-                            checked={idade === 'Criança'}
-                            onChange={(e) => setIdade(e.target.value)}
-                        />
-                        Criança
-                    </label>
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            value="Adolescente"
-                            checked={idade === 'Adolescente'}
-                            onChange={(e) => setIdade(e.target.value)}
-                        />
-                        Adolescente
-                    </label>
-                </div>
-            </div>
 
-            <div className="form-group">
-                <label>Gênero:</label>
-                <div className="radio-group">
-                    <label className="radio-label">
-                        <input
-                            type="radio"
-                            name={`genero-${index}`}
-                            value="Masculino"
-                            checked={genero === 'Masculino'}
-                            onChange={(e) => setGenero(e.target.value)}
-                        />
-                        Masculino
-                    </label>
-                    <label className="radio-label">
-                        <input
-                            type="radio"
-                            name={`genero-${index}`}
-                            value="Feminino"
-                            checked={genero === 'Feminino'}
-                            onChange={(e) => setGenero(e.target.value)}
-                        />
-                        Feminino
-                    </label>
-                </div>
-            </div>
+                        <FormControl component="fieldset" margin="dense" fullWidth>
+                            <FormLabel required component="legend">Categoria</FormLabel>
+                            <RadioGroup row>
+                                <FormControlLabel value="bebê" control={<Radio size="small" />} label="Bebê" />
+                                <FormControlLabel value="criança" control={<Radio size="small" />} label="Criança" />
+                                <FormControlLabel value="adolescente" control={<Radio size="small" />} label="Adolescente" />
+                            </RadioGroup>
+                        </FormControl>
 
-            <button className="remove-button" onClick={() => handleRemove(index)}>Remover Vítima</button>
+                        <FormControl component="fieldset" margin="dense" fullWidth>
+                            <FormLabel required component="legend">Gênero</FormLabel>
+                            <RadioGroup row>
+                                <FormControlLabel value="masculino" control={<Radio size="small" />} label="Masculino" />
+                                <FormControlLabel value="feminino" control={<Radio size="small" />} label="Feminina" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={removerVitima}
+                            size="small"
+                            sx={{ mt: 2 }}
+                        >
+                            Remover Vítima
+                        </Button>
+                    </CardContent>
+                </Card>
+            </Box>
         </div>
     );
 };

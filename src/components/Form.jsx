@@ -1,52 +1,52 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import VitimaForm from "./VitimaForm";
-import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel } from '@mui/material';
+import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel, Grid } from '@mui/material';
 
 const usarCamposFormulario = (estadoInicial) => {
     const [campos, setCampos] = useState(estadoInicial);
     const [tocados, setTocados] = useState({});
-  
+
     const manipularMudanca = (campo) => (evento) => {
-      setCampos({
-        ...campos,
-        [campo]: evento.target.value
-      });
-      setTocados({
-        ...tocados,
-        [campo]: true
-      });
+        setCampos({
+            ...campos,
+            [campo]: evento.target.value
+        });
+        setTocados({
+            ...tocados,
+            [campo]: true
+        });
     };
-  
+
     const manipularDesfoque = (campo) => () => {
-      setTocados({
-        ...tocados,
-        [campo]: true
-      });
+        setTocados({
+            ...tocados,
+            [campo]: true
+        });
     };
 
     const obterPropriedadesCampo = (campo) => ({
-      value: campos[campo],
-      onChange: manipularMudanca(campo),
-      onBlur: manipularDesfoque(campo),
-      error: tocados[campo] && !campos[campo],
-      helperText: tocados[campo] && !campos[campo] ? "Campo obrigatório" : undefined
+        value: campos[campo],
+        onChange: manipularMudanca(campo),
+        onBlur: manipularDesfoque(campo),
+        error: tocados[campo] && !campos[campo],
+        helperText: tocados[campo] && !campos[campo] ? "Campo obrigatório" : undefined
     });
-  
+
     const verificarCamposObrigatorios = () => {
-        const camposObrigatorios = ['rua', 'numero','bairro' ,'cidade', 'estado', 'cep'];
+        const camposObrigatorios = ['rua', 'numero', 'bairro', 'cidade', 'estado', 'cep'];
         let todosPreenchidos = true;
-    
+
         for (let campo of camposObrigatorios) {
-          if (!campos[campo] || campos[campo].trim() === '') {
-            setTocados(prevTocados => ({
-              ...prevTocados,
-              [campo]: true
-            }));
-            todosPreenchidos = false;
+            if (!campos[campo] || campos[campo].trim() === '') {
+                setTocados(prevTocados => ({
+                    ...prevTocados,
+                    [campo]: true
+                }));
+                todosPreenchidos = false;
+            }
         }
-    }
         return todosPreenchidos;
-      };
+    };
 
     return { obterPropriedadesCampo, verificarCamposObrigatorios };
 };
@@ -64,20 +64,31 @@ const Form = () => {
         estado: '',
         cep: '',
         complemento: '',
-      });
+    });
 
     const [tipoVul, setTipoVul] = useState('');
     const [texto, setTexto] = useState('');
-    const [vitimas, setVitimas] = useState([{}]);
+    const [vitimas, setVitimas] = useState([{ id: 0 }]);
 
+    const adicionarVitima = () => {
+        const novaVitima = {
+            id: vitimas.length === 0 ? 0 : Math.max(...vitimas.map(v => v.id)) + 1,
+        };
+        setVitimas([...vitimas, novaVitima]);
+    };
+
+    const removerVitima = (id) => {
+        const novasVitimas = vitimas.filter(vitima => vitima.id !== id);
+        setVitimas(novasVitimas);
+    };
     const proximo = () => {
-        if(verificarCamposObrigatorios()){
+        if (verificarCamposObrigatorios()) {
             setPassos(passos + 1);
         }
         else {
             alert('Por favor, preencha todos os campos obrigatórios.');
         }
-        
+
     };
 
     const anterior = () => {
@@ -85,26 +96,26 @@ const Form = () => {
     };
 
     const enviarFormulario = () => {
-        if(verificarCamposObrigatorios()){
+        if (verificarCamposObrigatorios()) {
             console.log("Formulário Enviado.");
         }
-        else{
+        else {
             alert('Por favor, preencha todos os campos obrigatórios.');
         }
     };
-  
+
     const [number, setNumber] = useState('');
 
     const valida_numero = (event) => {
         const value = event.target.value;
-        const re = /^[0-9\b]+$/; 
+        const re = /^[0-9\b]+$/;
         if (value === '' || re.test(value)) {
-        setNumber(value);
+            setNumber(value);
         }
     };
     return (
-        <Box 
-            sx={{ 
+        <Box
+            sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -112,18 +123,19 @@ const Form = () => {
                 minHeight: '100vh',
                 padding: '1rem',
                 boxSizing: 'border-box',
-                backgroundColor: '#f0f4f8', 
+                backgroundColor: '#f0f4f8',
             }}
         >
-            {}
-            <Box sx={{ width: '100%',
-                        maxWidth: '700px',
-                        backgroundColor: '#fff',
-                        padding: '2rem',
-                        borderRadius: '15px',
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                        }}>
-                {}
+            { }
+            <Box sx={{
+                width: '100%',
+                maxWidth: '700px',
+                backgroundColor: '#fff',
+                padding: '2rem',
+                borderRadius: '15px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            }}>
+                { }
                 <Stepper activeStep={passos - 1} sx={{ marginBottom: 4 }}>
                     {['Dados do Local', 'Vítimas', 'Vulnerabilidade', 'Revisão'].map((label) => (
                         <Step key={label}>
@@ -132,26 +144,26 @@ const Form = () => {
                     ))}
                 </Stepper>
 
-                {}
+                { }
                 {passos === 1 && (
                     <>
                         <Typography variant="h6" gutterBottom>Dados do Local</Typography>
                         <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
                             <TextField
-                            required={true}
-                            id="endereco-rua"
-                            label="Rua"
-                            variant="outlined"
-                            sx={{
-                                marginBottom: "40px",
-                                marginRight: "10px",
-                                width: "70%"
-                            }}
-                           
-                            fullWidth={true}
-                            {...obterPropriedadesCampo('rua')}
+                                required={true}
+                                id="endereco-rua"
+                                label="Rua"
+                                variant="outlined"
+                                sx={{
+                                    marginBottom: "40px",
+                                    marginRight: "10px",
+                                    width: "70%"
+                                }}
+
+                                fullWidth={true}
+                                {...obterPropriedadesCampo('rua')}
                             />
-                             <TextField
+                            <TextField
                                 required={true}
                                 id="endereco-numero"
                                 label="Número"
@@ -161,69 +173,74 @@ const Form = () => {
                                 sx={{
                                     marginBottom: "40px",
                                     marginRight: "10px",
-                                    width: "24%"}}
+                                    width: "24%"
+                                }}
                                 {...obterPropriedadesCampo('numero')}
                             />
                         </Box>
                         <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-                        <TextField
-                            required
-                            id="endereco-bairro"
-                            label="Bairro"
-                            variant="outlined"
-                            sx={{
-                                marginBottom: "40px",
-                                marginRight: "10px",
-                                width: "30%"}}
-                            {...obterPropriedadesCampo('bairro')}
+                            <TextField
+                                required
+                                id="endereco-bairro"
+                                label="Bairro"
+                                variant="outlined"
+                                sx={{
+                                    marginBottom: "40px",
+                                    marginRight: "10px",
+                                    width: "30%"
+                                }}
+                                {...obterPropriedadesCampo('bairro')}
                             />
-                        <TextField
-                            required
-                            id="endereco-cidade"
-                            label="Cidade"
-                            variant="outlined"
-                            sx={{
-                                marginBottom: "40px",
-                                marginRight: "10px",
-                                width: "40%"}}
-                            {...obterPropriedadesCampo('cidade')}
-                        />
+                            <TextField
+                                required
+                                id="endereco-cidade"
+                                label="Cidade"
+                                variant="outlined"
+                                sx={{
+                                    marginBottom: "40px",
+                                    marginRight: "10px",
+                                    width: "40%"
+                                }}
+                                {...obterPropriedadesCampo('cidade')}
+                            />
 
-                        <TextField
-                            required
-                            id="endereco-estado"
-                            label="Estado"
-                            variant="outlined"
-                            sx={{
-                                marginBottom: "40px",
-                                marginRight: "10px",
-                                width: "20%"}}
-                            {...obterPropriedadesCampo('estado')}
-                        />
+                            <TextField
+                                required
+                                id="endereco-estado"
+                                label="Estado"
+                                variant="outlined"
+                                sx={{
+                                    marginBottom: "40px",
+                                    marginRight: "10px",
+                                    width: "20%"
+                                }}
+                                {...obterPropriedadesCampo('estado')}
+                            />
                         </Box>
                         <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-                        <TextField
-                            id="endereco-complemento"
-                            label="Complemento"
-                            variant="outlined"
-                            sx={{width: "500px", marginRight: "10px"}}
-                            multiline={true}
-                            maxRows={6}
-                        />
-                        <TextField
-                            required
-                            id="endereco-CEP"
-                            label="CEP"
-                            variant="outlined"
-                            sx={{
-                                marginBottom: "40px",
-                                marginRight: "10px",
-                                width: "23%"}}
-                            {...obterPropriedadesCampo('cep')}
-                        />
+                            <TextField
+                                id="endereco-complemento"
+                                label="Complemento"
+                                variant="outlined"
+                                sx={{ width: "500px", marginRight: "10px" }}
+                                multiline={true}
+                                maxRows={6}
+                            />
+                            <TextField
+                                required
+                                id="endereco-CEP"
+                                label="CEP"
+                                variant="outlined"
+                                sx={{
+                                    marginBottom: "40px",
+                                    marginRight: "10px",
+                                    width: "23%"
+                                }}
+                                {...obterPropriedadesCampo('cep')}
+                            />
                         </Box>
 
-                        {}
+                        { }
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button disabled={passos === 1} onClick={anterior}>
                                 Anterior
@@ -238,11 +255,15 @@ const Form = () => {
                 {passos === 2 && (
                     <>
                         <Typography variant="h6" gutterBottom>Vítimas</Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                            {vitimas.map((_, index) => (
-                                <VitimaForm key={index} index={index} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1 }}>
+                            <Grid container spacing={2}>
+                            {vitimas.map((vitima) => (
+                                <Grid item xs={12} sm={6} md={4} lg={6} key={vitima.id}>
+                                <VitimaForm vitima={vitima} removerVitima={() => removerVitima(vitima.id)} />
+                                </Grid>
                             ))}
-                            <Button variant="contained" onClick={() => setVitimas([...vitimas, {}])}>Adicionar Vítima</Button>
+                           </Grid>
+                            <Button variant="contained" onClick={adicionarVitima }>Adicionar Vítima</Button>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
@@ -279,7 +300,7 @@ const Form = () => {
                             value={texto}
                             onChange={(e) => setTexto(e.target.value)}
                         />
-                        
+
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
                             <Button variant="contained" onClick={proximo}>Próximo</Button>
