@@ -255,7 +255,7 @@ const Form = () => {
                 {passos === 2 && (
                     <>
                         <Typography variant="h6" gutterBottom>Vítimas</Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flexGrow: 1 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems:'center'}}>
                             <Grid container spacing={2}>
                             {vitimas.map((vitima) => (
                                 <Grid item xs={12} sm={6} md={4} lg={6} key={vitima.id}>
@@ -263,7 +263,7 @@ const Form = () => {
                                 </Grid>
                             ))}
                            </Grid>
-                            <Button variant="contained" onClick={adicionarVitima }>Adicionar Vítima</Button>
+                            <Button variant="contained" size="medium" onClick={adicionarVitima } sx={{maxWidth: '200px',}}>Adicionar Vítima</Button>
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
@@ -276,10 +276,13 @@ const Form = () => {
                     <>
                         <Typography variant="h6" gutterBottom>Tipo de Vulnerabilidade</Typography>
                         <FormControl fullWidth sx={{ marginBottom: 2 }}>
-                            <InputLabel>Tipo de Vulnerabilidade</InputLabel>
+                            <InputLabel required id="vulnerabilidade">Tipo de Vulnerabilidade</InputLabel>
                             <Select
+                                labelId="vulnerabilidade"
+                                id="vulnerabilidade"
                                 value={tipoVul}
                                 onChange={(e) => setTipoVul(e.target.value)}
+                                label="Tipo de Vulnerabilidade"
                             >
                                 <MenuItem value="">
                                     <em>Nenhum</em>
