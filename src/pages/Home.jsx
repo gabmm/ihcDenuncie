@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Home.css'
 
 function Home() {
@@ -62,10 +63,14 @@ function Home() {
             <p>
                 A vulnerabilidade social de menores de idade é uma questão que demanda atenção urgente. Ao garantir que esses jovens tenham acesso a seus direitos fundamentais e estejam protegidos de abusos e negligências, podemos oferecer a eles uma chance de desenvolver todo o seu potencial e construir um futuro mais promissor.
             </p>
-
-            <button className="denunciar-btn">
-                Denunciar
-            </button>
+            <Link to="/report">
+                <button className="denunciar-btn">
+                    Denunciar
+                </button>
+            </Link>
+        
+            
+           
 
             </div>
         </div>
