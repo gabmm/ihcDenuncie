@@ -54,6 +54,42 @@ const usarCamposFormulario = (estadoInicial) => {
 const Form = () => {
     const [passos, setPassos] = useState(1);
     const totalPassos = 4;
+    const [dadosLocal, setDadosLocal] = useState({
+        rua: '',
+        numero: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+        cep: '',
+        complemento: ''
+    });
+
+    // Estado para armazenar os dados da vulnerabilidade
+    const [dadosVulnerabilidade, setDadosVulnerabilidade] = useState({
+        tipoVul: '',
+        descricao: ''
+    });
+    const salvarDadosLocal = () => {
+        setDadosLocal({
+            rua: obterPropriedadesCampo('rua').value,
+            numero: obterPropriedadesCampo('numero').value,
+            bairro: obterPropriedadesCampo('bairro').value,
+            cidade: obterPropriedadesCampo('cidade').value,
+            estado: obterPropriedadesCampo('estado').value,
+            cep: obterPropriedadesCampo('cep').value,
+            complemento: obterPropriedadesCampo('complemento').value,
+        });
+        proximo();
+    };
+    const salvarDadosVulnerabilidade = () => {
+        setDadosVulnerabilidade({
+            tipoVul,
+            descricao: texto
+        });
+        proximo();
+    };
+
+
     const opcoes = ['Violência Física', 'Abandono', 'Abuso Sexual', 'Trabalho Infantil'];
 
     const { obterPropriedadesCampo, verificarCamposObrigatorios } = usarCamposFormulario({
@@ -104,7 +140,6 @@ const Form = () => {
             setNumber(value);
         }
     };
-
 
     const [aberto, setAberto] = useState(false);
     const clickAberto = () => {
@@ -252,7 +287,7 @@ const Form = () => {
                             <Button disabled={passos === 1} onClick={anterior}>
                                 Anterior
                             </Button>
-                            <Button variant="contained" onClick={proximo}>
+                            <Button variant="contained" onClick={salvarDadosLocal}>
                                 Próximo
                             </Button>
                         </Box>
@@ -303,6 +338,7 @@ const Form = () => {
                         </FormControl>
 
                         <TextField
+                            required
                             fullWidth
                             multiline
                             rows={4}
@@ -313,14 +349,28 @@ const Form = () => {
 
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
-                            <Button variant="contained" onClick={proximo}>Próximo</Button>
+                            <Button variant="contained" onClick={salvarDadosVulnerabilidade}>Próximo</Button>
                         </Box>
                     </>
                 )}
 
                 {passos === 4 && (
                     <>
-                        <Typography variant="h6" gutterBottom>Revisão</Typography>
+                        <Typography variant="h6" gutterBottom sx={{fontWeight: 'bold'}}>Revisão</Typography>
+
+                        <Typography variant="subtitle1" sx={{fontWeight: 'bold'}}>Dados do Local</Typography>
+                        <Typography>Rua: {dadosLocal.rua}</Typography>
+                        <Typography>Número: {dadosLocal.numero}</Typography>
+                        <Typography>Bairro: {dadosLocal.bairro}</Typography>
+                        <Typography>Cidade: {dadosLocal.cidade}</Typography>
+                        <Typography>Estado: {dadosLocal.estado}</Typography>
+                        <Typography>CEP: {dadosLocal.cep}</Typography>
+                        <Typography>Complemento: {dadosLocal.complemento}</Typography>
+
+                        <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>Dados da Vulnerabilidade</Typography>
+                        <Typography>Tipo de Vulnerabilidade: {dadosVulnerabilidade.tipoVul}</Typography>
+                        <Typography>Descrição: {dadosVulnerabilidade.descricao}</Typography>
+                        
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
                             <Button variant="contained" onClick={clickAberto}>Enviar</Button>
