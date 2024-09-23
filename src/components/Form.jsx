@@ -355,21 +355,39 @@ const Form = () => {
 
                 {passos === 4 && (
                     <>
-                        <Typography variant="h6" gutterBottom sx={{fontWeight: 'bold'}}>Revisão</Typography>
+                        <Box sx={{
+                            minHeight: '70vh',
+                            padding: '2rem',
+                            boxSizing: 'border-box',
+                            backgroundColor: '#ffff',
+                            width: '100%',
+                            maxWidth: '500px',
+                            borderRadius: '15px',
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            margin: 'auto',
+                            marginTop: 5,
+                            border: '1px solid #ccc',
+                        }}>
+                            <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: 'darkblue' }}>Revisão</Typography>
+                            <div style={{ width: '100%', borderBottom: '2px solid #eee', marginTop: '1rem' }}>
+                                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'blue' }}>Dados do Local</Typography>
+                                <Typography><b>Rua:</b> {dadosLocal.rua}</Typography>
+                                <Typography><b>Número:</b> {dadosLocal.numero}</Typography>
+                                <Typography><b>Bairro:</b> {dadosLocal.bairro}</Typography>
+                                <Typography><b>Cidade:</b> {dadosLocal.cidade}</Typography>
+                                <Typography><b>Estado:</b> {dadosLocal.estado}</Typography>
+                                <Typography><b>CEP:</b> {dadosLocal.cep}</Typography>
+                                <Typography><b>Complemento:</b> {dadosLocal.complemento}</Typography>
+                            </div>
+                            <div>
+                                <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold', color: 'blue' }}>Dados da Vulnerabilidade</Typography>
+                                <Typography><b>Tipo de vulnerabilidade:</b> {dadosVulnerabilidade.tipoVul}</Typography>
+                                <Typography><b>Descrição:</b> {dadosVulnerabilidade.descricao}</Typography>
+                            </div>
+                        </Box>
 
-                        <Typography variant="subtitle1" sx={{fontWeight: 'bold'}}>Dados do Local</Typography>
-                        <Typography>Rua: {dadosLocal.rua}</Typography>
-                        <Typography>Número: {dadosLocal.numero}</Typography>
-                        <Typography>Bairro: {dadosLocal.bairro}</Typography>
-                        <Typography>Cidade: {dadosLocal.cidade}</Typography>
-                        <Typography>Estado: {dadosLocal.estado}</Typography>
-                        <Typography>CEP: {dadosLocal.cep}</Typography>
-                        <Typography>Complemento: {dadosLocal.complemento}</Typography>
 
-                        <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold' }}>Dados da Vulnerabilidade</Typography>
-                        <Typography>Tipo de Vulnerabilidade: {dadosVulnerabilidade.tipoVul}</Typography>
-                        <Typography>Descrição: {dadosVulnerabilidade.descricao}</Typography>
-                        
+
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
                             <Button onClick={anterior}>Anterior</Button>
                             <Button variant="contained" onClick={clickAberto}>Enviar</Button>

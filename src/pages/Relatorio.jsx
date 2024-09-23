@@ -34,7 +34,7 @@ function Relatorio() {
                         width: '20px', 
                         height: '20px', 
                         backgroundColor: 'red', 
-                        marginRight: '10px' // Espaço entre o quadrado e a palavra
+                        marginRight: '10px'
                     }} />
                     <Typography variant="body1">Urgente</Typography>
                     </Box>
@@ -70,7 +70,7 @@ function Relatorio() {
                  display: 'flex',
                  flexDirection: 'column',
                  alignItems: 'center',
-                 minHeight: '70vh', // Altura mínima da tela
+                 minHeight: '70vh', 
                  padding: '2rem',
                  boxSizing: 'border-box',
                  backgroundColor: '#ffff',
@@ -109,7 +109,7 @@ function Relatorio() {
                  display: 'flex',
                  flexDirection: 'column',
                  alignItems: 'center',
-                 minHeight: '70vh', // Altura mínima da tela
+                 minHeight: '70vh', 
                  padding: '2rem',
                  boxSizing: 'border-box',
                  backgroundColor: '#ffff',
@@ -150,7 +150,7 @@ function Relatorio() {
                  display: 'flex',
                  flexDirection: 'column',
                  alignItems: 'center',
-                 minHeight: '70vh', // Altura mínima da tela
+                 minHeight: '70vh', 
                  padding: '2rem',
                  boxSizing: 'border-box',
                  backgroundColor: '#ffff',
