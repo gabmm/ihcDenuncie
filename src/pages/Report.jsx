@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Form from "../components/Form";
 import { Modal, Box, Typography, Button } from '@mui/material';
 import './Report.css';

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import VitimaForm from "./VitimaForm";
 import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Box, Typography, Stepper, Step, StepLabel, Grid, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
@@ -53,7 +53,6 @@ const usarCamposFormulario = (estadoInicial) => {
 
 const Form = () => {
     const [passos, setPassos] = useState(1);
-    const totalPassos = 4;
     const [dadosLocal, setDadosLocal] = useState({
         rua: '',
         numero: '',

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './VitimaForm.css';
 import { Card, CardContent, Typography, TextField, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Button, Box } from '@mui/material';
 
