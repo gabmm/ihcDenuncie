@@ -45,8 +45,8 @@ function Relatorio() {
 
     const buttonStyles = (status) => ({
         marginTop: 15,
-        backgroundColor: status === 'ENCERRADO' ? '#4caf50' : status === 'POUCO URGENTE' ? '#ffeb3b' : '#ff5722',
-        color: status === 'POUCO URGENTE' ? '#333' : '#fff', 
+        backgroundColor: status === 'ENCERRADO' ? '#4caf50' : status === 'EM ANDAMENTO' ? '#ffeb3b' : '#ff5722',
+        color: status === 'EM ANDAMENTO' ? '#333' : '#fff', 
         padding: '10px 20px',
         borderRadius: '25px',
         fontSize: '1rem',
@@ -54,7 +54,7 @@ function Relatorio() {
         alignItems: 'center',
         gap: '10px',
         '&:hover': {
-            backgroundColor: status === 'ENCERRADO' ? '#388e3c' : status === 'POUCO URGENTE' ? '#fdd835' : '#e64a19',
+            backgroundColor: status === 'ENCERRADO' ? '#388e3c' : status === 'EM ANDAMENTO' ? '#fdd835' : '#e64a19',
         },
     });
 
@@ -107,9 +107,9 @@ function Relatorio() {
                              index === 1 ? 'Uma criança de 10 anos está sendo forçada a trabalhar em uma feira local, carregando caixas pesadas durante todo o dia, sem acesso à educação.' :
                               'Crianças em idade escolar não estão sendo inscritas ou levadas à escola, permanecendo em casa sem supervisão educacional ou suporte adequado.'}</Typography>
                         </Box>
-                        <Button variant="contained" sx={buttonStyles(index === 1 ? 'ENCERRADO' : index === 0 ? 'POUCO URGENTE' : 'EM ABERTO')}>
+                        <Button variant="contained" sx={buttonStyles(index === 1 ? 'ENCERRADO' : index === 0 ? 'EM ANDAMENTO' : 'EM ABERTO')}>
                             {index === 1 ? <CheckCircleOutlineIcon /> : index === 0 ? <HourglassEmptyIcon /> : <ErrorOutlineIcon />}
-                            {index === 1 ? 'ENCERRADO' : index === 0 ? 'POUCO URGENTE' : 'EM ABERTO'}
+                            {index === 1 ? 'ENCERRADO' : index === 0 ? 'EM ANDAMENTO' : 'EM ABERTO'}
                         </Button>
                     </CardContent>
                 </Card>
