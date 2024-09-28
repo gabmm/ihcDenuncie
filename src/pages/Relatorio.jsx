@@ -1,192 +1,121 @@
-import { Button, Box, Typography } from '@mui/material';
+import { Button, Box, Typography, Card, CardContent, Divider } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SecurityIcon from '@mui/icons-material/Security';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 
 function Relatorio() {
+    const cardStyle = {
+        width: '100%',
+        maxWidth: '600px',
+        margin: '20px auto',
+        borderRadius: '15px',
+        boxShadow: '0 6px 15px rgba(0,0,0,0.1)',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        '&:hover': {
+            transform: 'translateY(-5px)',
+            boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
+        },
+        backgroundColor: 'gainsboro'
+    };
+
+    const titleStyle = {
+        fontWeight: 'bold',
+        fontSize: '1.5rem',
+        color: '#283593',
+    };
+
+    const sectionHeader = {
+        fontWeight: 'bold',
+        color: '#3f51b5',
+        marginTop: '1rem',
+        fontSize: '1.2rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+    };
+
+    const dataText = {
+        marginBottom: '0.5rem',
+        lineHeight: '1.8',
+        fontSize: '1rem',
+        color: '#555',
+    };
+
+    const buttonStyles = (status) => ({
+        marginTop: 15,
+        backgroundColor: status === 'ENCERRADO' ? '#4caf50' : status === 'POUCO URGENTE' ? '#ffeb3b' : '#ff5722',
+        color: status === 'POUCO URGENTE' ? '#333' : '#fff', 
+        padding: '10px 20px',
+        borderRadius: '25px',
+        fontSize: '1rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        '&:hover': {
+            backgroundColor: status === 'ENCERRADO' ? '#388e3c' : status === 'POUCO URGENTE' ? '#fdd835' : '#e64a19',
+        },
+    });
+
     return (
         <>
-        <Typography sx={{ // LEGENDA
-                    position: 'fixed', 
-                    right: '350px',
-                    top: '50%', 
-                    transform: 'translateY(-50%)', 
-                    textOrientation: 'mixed',
-                    fontWeight: 'bold',
-                    color: 'gray',
-                    zIndex: 1000,
-                    '@media (max-width:2000px)': {
-                        right: '10 px', 
-                        top: '70%', 
-                        transform: 'translateY(-50%)', 
-                    },
-                    '@media (max-width:1500px)': {
-                        right: '15px', 
-                        top: '70%', 
-                        transform: 'translateY(-50%)', 
-                    },
-                    '@media (max-width:800px)': {
-                        right: '-35px', 
-                        top: '70%', 
-                        transform: 'translateY(-50%)', 
-                    },
-                }}>
-                    Legenda Lateral
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                    <Box sx={{
-                        width: '20px', 
-                        height: '20px', 
-                        backgroundColor: 'red', 
-                        marginRight: '10px'
-                    }} />
-                    <Typography variant="body1">Urgente</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                    <Box sx={{
-                        width: '20px', 
-                        height: '20px', 
-                        backgroundColor: 'yellow', 
-                        marginRight: '5px' 
-                    }} />
-                    <Typography variant="body1" sx={{ color: 'gray' }}>Pouco Urgente</Typography>
-                   </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                    <Box sx={{
-                        width: '20px', 
-                        height: '20px', 
-                        backgroundColor: 'gray', 
-                        marginRight: '5px' 
-                    }} />
-                    <Typography variant="body1" sx={{ color: 'gray' }}>Sem urgência</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                    <Box sx={{
-                        width: '20px', 
-                        height: '20px', 
-                        backgroundColor: 'green', 
-                        marginRight: '5px' 
-                    }} />
-                    <Typography variant="body1" sx={{ color: 'gray' }}>Concluído</Typography>
-                    </Box>
-        </Typography>
-            <Box sx={{
-                 display: 'flex',
-                 flexDirection: 'column',
-                 alignItems: 'center',
-                 minHeight: '70vh', 
-                 padding: '2rem',
-                 boxSizing: 'border-box',
-                 backgroundColor: '#ffff',
-                 width: '100%',
-                 maxWidth: '500px',
-                 borderRadius: '15px',
-                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                 margin: 'auto',
-                 marginTop: 5,
-                 border: '1px solid #ccc',
-                position: 'relative'
+            <Typography sx={{
+                position: 'fixed',
+                right: '350px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                fontWeight: 'bold',
+                color: '#999',
+                zIndex: 1000,
+                '@media (max-width:1500px)': { right: '15px', top: '70%' },
+                '@media (max-width:800px)': { right: '-35px', top: '70%' }
             }}>
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: 'darkblue' }}>CASO 1: JOANA</Typography>
-                <div style={{width: '100%',borderBottom: '2px solid #eee', marginTop: '1rem'}}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'blue' }}>Dados do Local</Typography>
-                    <Typography><b>Rua:</b> Avenida Paulista</Typography>
-                    <Typography><b>Número:</b> 1578</Typography>
-                    <Typography><b>Bairro:</b> Bela Vista</Typography>
-                    <Typography><b>Cidade:</b> São Paulo</Typography>
-                    <Typography><b>Estado:</b> SP</Typography>
-                    <Typography><b>CEP:</b> 01310-200</Typography>
-                    <Typography><b>Complemento:</b> 10º Andar</Typography>
-                </div>
-                
-                <div>
-                    <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold', color: 'blue' }}>Dados da Vulnerabilidade</Typography>
-                    <Typography><b>Tipo de Vulnerabilidade:</b> Abandono</Typography>
-                    <Typography><b>Descrição:</b> A criança foi deixada sozinha em casa sem supervisão por longos períodos, sem acesso a alimentos ou cuidados adequados.</Typography>
-                </div>
-
-                <Button variant="contained" sx={{marginTop: 15, backgroundColor: 'yellow', color: 'black'}}>
-                    Em aberto
-                </Button>
-            </Box>
-            <Box sx={{
-                 display: 'flex',
-                 flexDirection: 'column',
-                 alignItems: 'center',
-                 minHeight: '70vh', 
-                 padding: '2rem',
-                 boxSizing: 'border-box',
-                 backgroundColor: '#ffff',
-                 width: '100%',
-                 maxWidth: '500px',
-                 borderRadius: '15px',
-                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                 margin: 'auto',
-                 marginTop: 5
-            }}>
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: 'darkblue' }}>CASO 2: Rafaela</Typography>
-
-                <div style={{width: '100%',borderBottom: '2px solid #eee', marginTop: '1rem'}}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'blue' }}>Dados do Local</Typography>
-                    <Typography><b>Rua:</b>Rua: Rua das Flores</Typography>
-                    <Typography><b>Número:</b> 256</Typography>
-                    <Typography><b>Bairro:</b> Centro</Typography>
-                    <Typography><b>Cidade:</b> Curitiba</Typography>
-                    <Typography><b>Estado:</b> PR</Typography>
-                    <Typography><b>CEP:</b> 80020-150</Typography>
-                    <Typography><b>Complemento:</b> Apartamento 302</Typography>
-                </div>
-               
-                <div>
-                    <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold', color:'blue' }}>Dados da Vulnerabilidade</Typography>
-                    <Typography><b>Tipo de Vulnerabilidade:</b> Trabalho Infantil</Typography>
-                    <Typography><b>Descrição:</b> Uma criança de 10 anos está sendo
-                        forçada a trabalhar em uma feira local, carregando caixas 
-                        pesadas durante todo o dia, sem acesso à educação.</Typography>
-                </div>
-               
-
-                <Button variant="contained" sx={{marginTop: 15, backgroundColor: 'green'}}>
-                    ENCERRADO
-                </Button>
-            </Box>
-            <Box sx={{
-                 display: 'flex',
-                 flexDirection: 'column',
-                 alignItems: 'center',
-                 minHeight: '70vh', 
-                 padding: '2rem',
-                 boxSizing: 'border-box',
-                 backgroundColor: '#ffff',
-                 width: '100%',
-                 maxWidth: '500px',
-                 borderRadius: '15px',
-                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                 margin: 'auto',
-                 marginTop: 5
-            }}>
-                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: 'darkblue' }}>CASO 3: Pedro</Typography>
-                <div style={{ width: '100%', borderBottom: '2px solid #eee', marginTop: '1rem' }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'blue' }}>Dados do Local</Typography>
-                    <Typography><b>Rua:</b> Avenida Sete de Setembro</Typography>
-                    <Typography><b>Número:</b> 1450</Typography>
-                    <Typography><b>Bairro:</b> Vila Mariana</Typography>
-                    <Typography><b>Cidade:</b> Rio de Janeiro</Typography>
-                    <Typography><b>Estado:</b> RJ</Typography>
-                    <Typography><b>CEP:</b> 22050-002</Typography>
-                    <Typography><b>Complemento:</b> Casa 11</Typography>
-                </div>
-
-                <div>
-                    <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 'bold', color: 'blue' }}>Dados da Vulnerabilidade</Typography>
-                    <Typography><b>Tipo de Vulnerabilidade:</b> Negligência Educacional</Typography>
-                    <Typography><b>Descrição:</b> Crianças em idade escolar não estão sendo
-                        inscritas ou levadas à escola, permanecendo em casa sem supervisão 
-                        educacional ou suporte adequado.</Typography>
-                </div>
-                <Button variant="contained" sx={{marginTop: 15, backgroundColor: 'RED'}}>
-                    EM ABERTO
-                </Button>
-
-            </Box>
+                Legenda Lateral
+                {['#f44336', '#ffeb3b', '#9e9e9e', '#4caf50'].map((color, index) => (
+                    <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }} key={index}>
+                        <Box sx={{ width: '20px', height: '20px', backgroundColor: color, marginRight: '10px' }} />
+                        <Typography variant="body1" sx={{ color: '#555' }}>
+                            {['Urgente', 'Pouco Urgente', 'Sem urgência', 'Concluído'][index]}
+                        </Typography>
+                    </Box>
+                ))}
+            </Typography>
+            {['Joana', 'Rafaela', 'Pedro'].map((nome, index) => (
+                <Card sx={cardStyle} key={index}>
+                    <CardContent>
+                        <Typography sx={titleStyle}>{`CASO ${index + 1}: ${nome}`}</Typography>
+                        <Divider sx={{ margin: '1rem 0' }} />
+                        <Typography sx={sectionHeader}>
+                            <LocationOnIcon /> Dados do Local
+                        </Typography>
+                        <Box sx={dataText}>
+                            <Typography><b>Rua:</b> {index === 0 ? 'Avenida Paulista' : index === 1 ? 'Rua das Flores' : 'Avenida Sete de Setembro'}</Typography>
+                            <Typography><b>Número:</b> {index === 0 ? '1578' : index === 1 ? '256' : '1450'}</Typography>
+                            <Typography><b>Bairro:</b> {index === 0 ? 'Bela Vista' : index === 1 ? 'Centro' : 'Vila Mariana'}</Typography>
+                            <Typography><b>Cidade:</b> {index === 0 ? 'São Paulo' : index === 1 ? 'Curitiba' : 'Rio de Janeiro'}</Typography>
+                            <Typography><b>Estado:</b> {index === 0 ? 'SP' : index === 1 ? 'PR' : 'RJ'}</Typography>
+                            <Typography><b>CEP:</b> {index === 0 ? '01310-200' : index === 1 ? '80020-150' : '22050-002'}</Typography>
+                            <Typography><b>Complemento:</b> {index === 0 ? '10º Andar' : index === 1 ? 'Apartamento 302' : 'Casa 11'}</Typography>
+                        </Box>
+                        <Typography sx={sectionHeader}>
+                            <SecurityIcon /> Dados da Vulnerabilidade
+                        </Typography>
+                        <Box sx={dataText}>
+                            <Typography><b>Tipo de Vulnerabilidade:</b> {index === 0 ? 'Abandono' : index === 1 ? 'Trabalho Infantil' : 'Negligência Educacional'}</Typography>
+                            <Typography><b>Descrição:</b> {index === 0 ? 'A criança foi deixada sozinha em casa sem supervisão por longos períodos, sem acesso a alimentos ou cuidados adequados.':
+                             index === 1 ? 'Uma criança de 10 anos está sendo forçada a trabalhar em uma feira local, carregando caixas pesadas durante todo o dia, sem acesso à educação.' :
+                              'Crianças em idade escolar não estão sendo inscritas ou levadas à escola, permanecendo em casa sem supervisão educacional ou suporte adequado.'}</Typography>
+                        </Box>
+                        <Button variant="contained" sx={buttonStyles(index === 1 ? 'ENCERRADO' : index === 0 ? 'POUCO URGENTE' : 'EM ABERTO')}>
+                            {index === 1 ? <CheckCircleOutlineIcon /> : index === 0 ? <HourglassEmptyIcon /> : <ErrorOutlineIcon />}
+                            {index === 1 ? 'ENCERRADO' : index === 0 ? 'POUCO URGENTE' : 'EM ABERTO'}
+                        </Button>
+                    </CardContent>
+                </Card>
+            ))}
         </>
-    )
+    );
 }
 
 export default Relatorio;
