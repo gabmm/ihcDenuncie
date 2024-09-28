@@ -71,7 +71,7 @@ function Relatorio() {
                 '@media (max-width:1500px)': { right: '15px', top: '70%' },
                 '@media (max-width:800px)': { right: '-35px', top: '70%' }
             }}>
-                Legenda Lateral
+                Legenda
                 {['#f44336', '#ffeb3b', '#9e9e9e', '#4caf50'].map((color, index) => (
                     <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }} key={index}>
                         <Box sx={{ width: '20px', height: '20px', backgroundColor: color, marginRight: '10px' }} />
