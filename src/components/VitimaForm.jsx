@@ -33,7 +33,7 @@ const VitimaForm = ({ vitima, removerVitima }) => {
                             <FormLabel required component="legend">Gênero</FormLabel>
                             <RadioGroup row>
                                 <FormControlLabel value="masculino" control={<Radio size="small" />} label="Masculino" />
-                                <FormControlLabel value="feminino" control={<Radio size="small" />} label="Feminina" />
+                                <FormControlLabel value="feminino" control={<Radio size="small" />} label="Feminino" />
                             </RadioGroup>
                         </FormControl>
 
