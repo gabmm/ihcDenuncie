@@ -15,7 +15,7 @@ function Home() {
     <>
       <Box
         sx={{
-          backgroundImage: 'url("./public/10477610.jpg")',
+          backgroundImage: 'url("../assets/protecao.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed", 
