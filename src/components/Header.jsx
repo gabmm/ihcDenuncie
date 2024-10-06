@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, Button, Box, Link as MuiLink } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Home as HomeIcon, Report, Assessment } from "@mui/icons-material"; 
-
+import logo from '../assets/logo_escudo.png';
 function Header() {
   return (
     <AppBar
@@ -23,7 +23,7 @@ function Header() {
             alignItems: "center",
           }}
         >
-          <img src="./public/logo_escudo.png" alt="Logo" style={{ height: "40px", marginRight: "10px" }} />
+          <img src= {logo} alt="Logo" style={{ height: "40px", marginRight: "10px" }} />
           <Typography variant="h6" sx={{transition: "transform 0.3s ease, background-color 0.3s ease",
                 "&:hover": {
                   transform: "scale(1.05)",
