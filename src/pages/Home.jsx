@@ -9,13 +9,14 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import backgroundImage from '../assets/protecao.jpg';
 
 function Home() {
   return (
     <>
       <Box
         sx={{
-          backgroundImage: 'url("../assets/protecao.jpg")',
+          backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed", 
